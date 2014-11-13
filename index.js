@@ -49,23 +49,21 @@ var connect = function(options) {
  */
 module.exports = function(options, localPath, remotePath, compile){
     connect(options).then(function(sftp){
-        chokidar.watch(localPath, {persistent: true})
+        chokidar.watch(localPath, {persistent: true, ignoreInitial: true})
 
             .on('add', function (p) {
                 console.log('Sftp :: upload added', p);
-                compile(p).then(function(){
-                    sftp.fastPut(p, p.replace(localPath, remotePath), {}, function (err) {
-                        if (err) {
-                            console.log('Sftp :: upload err', err);
-                        }
-                    });
+                sftp.fastPut(p, p.replace(localPath, remotePath), {}, function (err) {
+                    if (err) {
+                        console.log('Sftp :: upload err', err);
+                    }
                 });
             })
 
             .on('change', function (p) {
                 console.log('Sftp :: upload changed', p);
-                compile(p).then(function() {
-                    sftp.fastPut(p, p.replace(localPath, remotePath), {}, function (err) {
+                compile(p).then(function(newPath) {
+                    sftp.fastPut(newPath, p.replace(localPath, remotePath), {}, function (err) {
                         if (err) {
                             console.log('Sftp :: upload err', err);
                         }
