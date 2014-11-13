@@ -1,0 +1,26 @@
+{
+  "name": "automa-watch-ssh2",
+  "version": "0.0.1",
+  "description": "Connect on ssh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:unclepotap/automa-watch-ssh2.git"
+  },
+  "author": {
+    "name": "Ivan Potapov"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unclepotap/automa-watch-ssh2/issues"
+  },
+  "homepage": "https://github.com/unclepotap/automa-watch-ssh2",
+  "dependencies": {
+    "vow": "^0.4.7",
+    "ssh2": "^0.3.6",
+    "chokidar": "^0.10.5"
+  }
+}
