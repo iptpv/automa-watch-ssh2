@@ -62,12 +62,20 @@ module.exports = function(options, localPath, remotePath, compile){
 
             .on('change', function (p) {
                 console.log('Sftp :: upload changed', p);
-                compile(p).then(function(newPath) {
-                    sftp.fastPut(newPath, p.replace(localPath, remotePath), {}, function (err) {
-                        if (err) {
-                            console.log('Sftp :: upload err', err);
-                        }
-                    });
+                compile(p).then(function(data) {
+                    if (typeof data == 'string') {
+                        sftp.fastPut(data, p.replace(localPath, remotePath), {}, function (err) {
+                            if (err) {
+                                console.log('Sftp :: upload err', err);
+                            }
+                        });
+                    } else {
+                        var writable = sftp.createWriteStream(data.path.replace(localPath, remotePath));
+                        writable.write(data.stream);
+                        writable.on('end', function () {
+                            writable.end();
+                        });
+                    }
                 });
             })
 
