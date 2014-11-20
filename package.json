@@ -1,6 +1,6 @@
 {
   "name": "automa-watch-ssh2",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Connect on ssh",
   "main": "index.js",
   "scripts": {

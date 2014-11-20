@@ -49,7 +49,7 @@ var connect = function(options) {
  */
 module.exports = function(options, localPath, remotePath, compile){
     connect(options).then(function(sftp){
-        chokidar.watch(localPath, {ignoreInitial: true})
+        chokidar.watch(localPath, {ignoreInitial: true, persistent: true})
 
             .on('add', function (p) {
                 console.log('Sftp :: upload added', p);
